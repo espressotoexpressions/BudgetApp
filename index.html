@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link href="./output.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="flex" id="mainContainer">
+    <h1> BUDGET TRACKER</h1>
+    <!--Start expense section-->
+    
+    <!--start of input expense section-->
+    <div>
+        <div>
+            <p> Expense Name:</p>
+            <input type="text" id="expenseName"> 
+        </div>
+        <div>
+            <p> Expense Amount:</p>
+            <input type="text" id="expenseAmt"> 
+        </div>
+        
+        <button id="addExpenseBtn">Add Expense</button>
+        <p id="expenseErrorMsg"></p>
+    </div> <!--end input expense section-->
+    <div  id= "expensesSection" class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+
+    
+        <h3 class="flex items-center ps-2.5 mb-5 text-lg font-bold"> Expenses</h3>
+        <ul class="space-y-2 font-medium" id="expenseItemSection">
+         <!-- auto generated li based on expense Array-->
+        </ul>
+     </div>
+     
+     <!--end expense section-->
+
+     <!-- start income section-->
+    <!--start of input income section-->
+    <div>
+        <div>
+            <p> Income Amount:</p>
+            <input type="text" id="incomeAmt"> 
+        </div>
+        <button id="addIncomeBtn">Add Income</button>
+        <p id="incomeErrorMsg"> </p>
+    </div> <!--end input income section-->
+  
+     <div  id= "incomeSection" class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+
+    
+        <h3 class="flex items-center ps-2.5 mb-5 text-lg font-bold"> Income</h3>
+        <ul class="space-y-2 font-medium" id="incomeItemSection">
+         <!-- auto generated li based on income Array-->
+        </ul>
+     </div>
+     <!--end income section-->
+     <!--BUDGET REMAINING-->
+     <div>
+        <p> REMAINING BUDGET</p>
+        <p id="remainingBudget"></p>
+     </div>
+
+
+</div>
+
+    <script type="module" src="./scripts/app.js"></script>
+    <script type="module" src="./scripts/localStorage.js"></script>
+</script>
+</body>
+</html>
