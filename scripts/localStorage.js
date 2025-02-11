@@ -12,12 +12,17 @@
 
 
 function addExpense(expenseName,amt){
-    let expenseList=retrieveExpenses()
-    console.log(expenseList);
-    console.log(expenseList.length)
+    let expenseList=retrieveExpenses();
+       if (expenseList !=null){
     expenseList.push({id: expenseList.length+1,name :expenseName,amount: amt});
-    console.log(expenseList);
-    localStorage.setItem('Expenses',JSON.stringify(expenseList));
+        
+       }
+       else 
+       {
+            expenseList=[];
+           expenseList.push({id:1,name :expenseName,amount: amt});
+       }
+       localStorage.setItem('Expenses',JSON.stringify(expenseList));
 }
 function deleteExpense(idToDelete){
     let expenseList=retrieveExpenses()
@@ -27,7 +32,7 @@ function deleteExpense(idToDelete){
     console.log(expenseList);
     localStorage.setItem('Expenses', JSON.stringify(expenseList));
 
- 
+    
 }
 function updateExpense(isToUpdate,newExpenseName, newAmt){
     let expenseList=retrieveExpenses()
@@ -50,6 +55,7 @@ function updateExpense(isToUpdate,newExpenseName, newAmt){
 function retrieveExpenses(){
    
     let expenseData = localStorage.getItem('Expenses');
+    console.log("EXPENSE DATA" +JSON.parse(expenseData));
     return JSON.parse(expenseData);
 
 }
@@ -85,25 +91,34 @@ function getBudgetLeft()
 {
     let incomeData = retrieveIncome();
     let totalIncome=0;
-    incomeData.map(income =>{
-        console.log("ID" +income.id);
-        console.log("AMT"+income.amount);
-        totalIncome += income.amount;
-    })
-    console.log("TOTAL"+ totalIncome);
-
-    let expenseData = retrieveExpenses();
     let totalExpense=0;
-    expenseData.map(expense =>{
-        console.log("ID" +expense.id);
-        console.log("AMT"+expense.amount);
-        totalExpense += expense.amount;
-    })
-    console.log("TOTAL: "+ totalIncome);
-    console.log("EXP: "+totalExpense);
+    if (incomeData !=null)
+        {
+            incomeData.map(income =>{
+                console.log("ID" +income.id);
+                console.log("AMT"+income.amount);
+                totalIncome += income.amount;
+            })
+            console.log("TOTAL"+ totalIncome);
+  
+            
+        }
+              
+        let expenseData = retrieveExpenses();
+        if(expenseData !=null)
+            {
+                expenseData.map(expense =>{
+                    console.log("ID" +expense.id);
+                    console.log("AMT"+expense.amount);
+                    totalExpense += expense.amount;
+                })
+                console.log("TOTAL: "+ totalIncome);
+                console.log("EXP: "+totalExpense);
+            }
 
-    console.log("BUDGETLEFT" + (totalIncome-totalExpense));
-    return totalIncome-totalExpense;
+    
+        // console.log("BUDGETLEFT" + (totalIncome-totalExpense));
+        return totalIncome-totalExpense;
 }
 
 

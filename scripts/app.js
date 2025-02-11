@@ -23,60 +23,68 @@ let incomeErrorMsg=document.getElementById("incomeErrorMsg");
 function populateExpenseSection() {
   expenseItemSection.innerText = ""; //resets the section to avoid duplicate entries
   let expenseData = retrieveExpenses();
-
-  expenseData.map((expense) => {
-    console.log("ID" + expense.id);
-    console.log("AMT" + expense.amount);
-
-    const expenseSectionItem = document.createElement("div"); // favorite item  create
-    expenseSectionItem.classList.add(
-      "flex",
-      "items-center",
-      "p-2",
-      "text-gray-900",
-      "rounded-lg",
-      "dark:text-white",
-      "hover:bg-amber-100",
-      "dark:hover:bg-amber-700",
-      "group"
-    );
-
-    // Create a <span> for the text to separate it from the icon
-    const expenseText = document.createElement("input");
-    expenseText.value = `${expense.name}`;
-    expenseSectionItem.appendChild(expenseText); // Add the text to the <li>
-
-    //create another <span> for the amount
-    const expenseAmount = document.createElement("input");
-    expenseAmount.value = `${expense.amount}`;
-    expenseSectionItem.appendChild(expenseAmount); // Add the amount to the <li>
-
-    // create an updatebutton
-    const updateExpenseBtn = document.createElement("button");
-    updateExpenseBtn.innerText = "Update";
-    expenseSectionItem.appendChild(updateExpenseBtn);
-
-    updateExpenseBtn.addEventListener('click',()=>{
-        updateExpense( expense.id, expenseText.value,expenseAmount.value);
-        populateExpenseSection();
-        displayRemainingBudget();
-    })
-
-    //create a delete button
-    const removeExpenseBtn = document.createElement("button");
-    removeExpenseBtn.innerText = "Delete";
-    expenseSectionItem.appendChild(removeExpenseBtn);
-
-    removeExpenseBtn.addEventListener("click", () => {
-      deleteExpense(expense.id);
-      populateExpenseSection();
-      displayRemainingBudget();
-    });
-
-    // Append the <li> to the parent container
-    expenseItemSection.appendChild(expenseSectionItem);
-    console.log(expenseSectionItem);
-  }); //end of mapping from expensesdata from local storage
+    if (expenseData !=null)
+        {
+        expenseData.map((expense) => {
+            console.log("ID" + expense.id);
+            console.log("AMT" + expense.amount);
+        
+            const expenseSectionItem = document.createElement("div"); // favorite item  create
+            expenseSectionItem.classList.add(
+              "flex",
+              "items-center",
+              "p-2",
+              "text-gray-900",
+              "rounded-lg",
+              "dark:text-white",
+              "hover:bg-amber-100",
+              "dark:hover:bg-amber-700",
+              "group"
+            );
+        
+            // Create a <span> for the text to separate it from the icon
+            const expenseText = document.createElement("input");
+            expenseText.value = `${expense.name}`;
+            expenseSectionItem.appendChild(expenseText); // Add the text to the <li>
+        
+            //create another <span> for the amount
+            const expenseAmount = document.createElement("input");
+            expenseAmount.value = `${expense.amount}`;
+            expenseSectionItem.appendChild(expenseAmount); // Add the amount to the <li>
+        
+            // create an updatebutton
+            const updateExpenseBtn = document.createElement("button");
+            updateExpenseBtn.innerText = "Update";
+            expenseSectionItem.appendChild(updateExpenseBtn);
+        
+            updateExpenseBtn.addEventListener('click',()=>{
+                updateExpense( expense.id, expenseText.value,expenseAmount.value);
+                populateExpenseSection();
+                displayRemainingBudget();
+            })
+        
+            //create a delete button
+            const removeExpenseBtn = document.createElement("button");
+            removeExpenseBtn.innerText = "Delete";
+            expenseSectionItem.appendChild(removeExpenseBtn);
+        
+            removeExpenseBtn.addEventListener("click", () => {
+              deleteExpense(expense.id);
+              populateExpenseSection();
+              displayRemainingBudget();
+            });
+        
+            // Append the <li> to the parent container
+            expenseItemSection.appendChild(expenseSectionItem);
+            console.log(expenseSectionItem);
+          }); //end of mapping from expensesdata from local storage
+    }// end of if json data return is null/ expense list is null
+    else{
+        const emptyExpenseList=document.createElement('p');
+        emptyExpenseList.innerText ="No expenses added yet";
+        expenseItemSection.appendChild(emptyExpenseList);
+    }
+  
 }
 
 function populateIncomeSection() {
