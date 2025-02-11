@@ -62,8 +62,13 @@ function retrieveExpenses(){
 
 function addIncome(amt){
     let incomeList=retrieveIncome();
-
-    incomeList.push({id:incomeList.length+1,amount:amt});
+    if (incomeList !=null){
+        incomeList.push({id:incomeList.length+1,amount:amt});
+    }
+    else{
+        incomeList=[];
+        incomeList.push({id:1,amount:amt});
+    }
     console.log (incomeList);
     localStorage.setItem('Income',JSON.stringify(incomeList));
 }

@@ -91,40 +91,50 @@ function populateIncomeSection() {
   incomeItemSection.innerText = "";
   let incomeData = retrieveIncome();
 
-  incomeData.map((income) => {
-    const incomeSectionItem = document.createElement("div"); // favorite item  create
-    incomeSectionItem.classList.add(
-      "flex",
-      "items-center",
-      "p-2",
-      "text-gray-900",
-      "rounded-lg",
-      "dark:text-white",
-      "hover:bg-amber-100",
-      "dark:hover:bg-amber-700",
-      "group"
-    );
+  if (incomeData!=null){
+    incomeData.map((income) => {
+        const incomeSectionItem = document.createElement("div"); // favorite item  create
+        incomeSectionItem.classList.add(
+          "flex",
+          "items-center",
+          "p-2",
+          "text-gray-900",
+          "rounded-lg",
+          "dark:text-white",
+          "hover:bg-amber-100",
+          "dark:hover:bg-amber-700",
+          "group"
+        );
+    
+        //create another <span> for the amount
+        const incomeAmount = document.createElement("span");
+        incomeAmount.innerText = `${income.amount}`;
+        incomeSectionItem.appendChild(incomeAmount); // Add the amount to the <li>
+    
+        //create a delete button
+        const removeIncomeBtn = document.createElement("button");
+        removeIncomeBtn.innerText = "Delete";
+        incomeSectionItem.appendChild(removeIncomeBtn);
+    
+        removeIncomeBtn.addEventListener("click", () => {
+          deleteIncome(income.id);
+          populateIncomeSection();
+          displayRemainingBudget();
+        });
+    
+        // Append the <li> to the parent container
+        incomeItemSection.appendChild(incomeSectionItem);
+        console.log(incomeItemSection);
+      }); //end of mapping from income data from local storage
+  }
+  else 
+  {
+    const emptyIncomeList=document.createElement('p');
+    emptyIncomeList.innerText ="No expenses added yet";
+    incomeItemSection.appendChild(emptyIncomeList);
 
-    //create another <span> for the amount
-    const incomeAmount = document.createElement("span");
-    incomeAmount.innerText = `${income.amount}`;
-    incomeSectionItem.appendChild(incomeAmount); // Add the amount to the <li>
-
-    //create a delete button
-    const removeIncomeBtn = document.createElement("button");
-    removeIncomeBtn.innerText = "Delete";
-    incomeSectionItem.appendChild(removeIncomeBtn);
-
-    removeIncomeBtn.addEventListener("click", () => {
-      deleteIncome(income.id);
-      populateIncomeSection();
-      displayRemainingBudget();
-    });
-
-    // Append the <li> to the parent container
-    incomeItemSection.appendChild(incomeSectionItem);
-    console.log(incomeItemSection);
-  }); //end of mapping from income data from local storage
+  }
+  
 }
 
 function displayRemainingBudget() {
